@@ -12,7 +12,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to The *SlightlyMediocre* Haastival website!
+        PENIS PENIS PENIS PENIS
         </h1>
         <div className={styles.grid}>
         </div>
