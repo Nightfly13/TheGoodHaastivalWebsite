@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
+import QRReader from "../components/QRReader.tsx";
 
 export default function Home() {
   return (
@@ -9,8 +10,8 @@ export default function Home() {
         <title>Haastival App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main className={styles.main}>
+      <QRReader />
         <h1 className={styles.title}>
         PENIS PENIS PENIS PENIS
         </h1>
