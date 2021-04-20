@@ -14,14 +14,14 @@ class Page extends Component {
           ? largeCounter + 1
           : Math.max(largeCounter - 1, 0),
       }));
-      this.setState(({allTickets})=> ({allTickets : e.target.id.includes("inc") ? allTickets +1 :  Math.max(allTickets -1)}))
+      this.setState(({allTickets})=> ({allTickets : e.target.id.includes("inc") ? allTickets +1 :  Math.max(allTickets -1, 0)}))
     } else {
       this.setState(({ smallCounter }) => ({
         smallCounter: e.target.id.includes("inc")
           ? smallCounter + 1
           : Math.max(smallCounter - 1, 0),
       }));
-      this.setState(({allTickets})=> ({allTickets : e.target.id.includes("inc") ? allTickets +1 :  Math.max(allTickets -1)}))
+      this.setState(({allTickets})=> ({allTickets : e.target.id.includes("inc") ? allTickets +1 :  Math.max(allTickets -1, 0)}))
     }
   };
   //counter: e.name.inludes ? counter + 1 : counter-1
