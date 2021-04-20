@@ -4,24 +4,25 @@ import React, { Component } from "react";
 import styles from "../styles/Home.module.css";
 
 class Page extends Component {
-  state = { largeCounter: 0, smallCounter: 0, allTickets: 0};
+  state = { largeCounter: 0, smallCounter: 0, allTickets: 0 };
 
   mealCount = (e) => {
-    console.log(e);
     if (e.target.id.includes("Large")) {
+      let newCount = e.target.id.includes("inc") ? this.state.largeCounter + 1 : Math.max(this.state.largeCounter - 1, 0)
       this.setState(({ largeCounter }) => ({
-        largeCounter: e.target.id.includes("inc")
-          ? largeCounter + 1
-          : Math.max(largeCounter - 1, 0),
+        largeCounter: newCount
       }));
-      this.setState(({allTickets})=> ({allTickets : e.target.id.includes("inc") ? allTickets +1 :  Math.max(allTickets -1, 0)}))
+      this.setState(({ allTickets }) => ({
+        allTickets: newCount+this.state.smallCounter
+      }));
     } else {
+      let newCount = e.target.id.includes("inc") ? this.state.smallCounter + 1 : Math.max(this.state.smallCounter - 1, 0)
       this.setState(({ smallCounter }) => ({
-        smallCounter: e.target.id.includes("inc")
-          ? smallCounter + 1
-          : Math.max(smallCounter - 1, 0),
+        smallCounter: newCount
       }));
-      this.setState(({allTickets})=> ({allTickets : e.target.id.includes("inc") ? allTickets +1 :  Math.max(allTickets -1, 0)}))
+      this.setState(({ allTickets }) => ({
+        allTickets: this.state.largeCounter+newCount
+      }));
     }
   };
   //counter: e.name.inludes ? counter + 1 : counter-1
@@ -36,26 +37,26 @@ class Page extends Component {
         <main className={styles.main}>
           <h1 className={styles.title}>Tickets: []</h1>
           <div>
-          <button id="subLarge" onClick={this.mealCount}>
-            -
-          </button>
-          <p id="largeMeal">{this.state.largeCounter}</p>
-          <button id="incLarge" onClick={this.mealCount}>
-            +
-          </button>
-          </div >
+            <button id="subLarge" onClick={this.mealCount}>
+              -
+            </button>
+            <p id="largeMeal">{this.state.largeCounter}</p>
+            <button id="incLarge" onClick={this.mealCount}>
+              +
+            </button>
+          </div>
           <div>
-          <button id="subSmall" onClick={this.mealCount}>
-            -
-          </button>
-          <p id="smallMeal">{this.state.smallCounter}</p>
-          <button id="incSmall" onClick={this.mealCount}>
-            +
-          </button>
+            <button id="subSmall" onClick={this.mealCount}>
+              -
+            </button>
+            <p id="smallMeal">{this.state.smallCounter}</p>
+            <button id="incSmall" onClick={this.mealCount}>
+              +
+            </button>
           </div>
           <div>
             <p>Total amount: {this.state.allTickets}</p>
-          <button id="confirm">Confirm</button>
+            <button id="confirm">Confirm</button>
           </div>
           <div className={styles.grid}></div>
           <div class="navbar" id="myNavbar">
