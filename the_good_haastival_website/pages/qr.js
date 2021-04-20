@@ -13,7 +13,7 @@ export default function Home() {
       <main className={styles.main}>
       <QRReader />
         <h1 className={styles.title}>
-        PENIS PENIS PENIS PENIS
+        SCAN THE CODE YES WORKS NOW ~~~~~~(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
         </h1>
         <div className={styles.grid}>
         </div>
