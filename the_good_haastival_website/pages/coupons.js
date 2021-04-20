@@ -13,7 +13,7 @@ class Page extends Component {
         largeCounter: newCount
       }));
       this.setState(({ allTickets }) => ({
-        allTickets: newCount+this.state.smallCounter
+        allTickets: newCount*2+this.state.smallCounter
       }));
     } else {
       let newCount = e.target.id.includes("inc") ? this.state.smallCounter + 1 : Math.max(this.state.smallCounter - 1, 0)
@@ -21,7 +21,7 @@ class Page extends Component {
         smallCounter: newCount
       }));
       this.setState(({ allTickets }) => ({
-        allTickets: this.state.largeCounter+newCount
+        allTickets: this.state.largeCounter*2+newCount
       }));
     }
   };
