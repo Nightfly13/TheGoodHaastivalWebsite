@@ -1,21 +1,28 @@
 /* Place the navbar at the bottom of the page, and make it stick */
 .navbar {
-    background-color: #333;
+    background-color: rgb(230, 115, 39);
     overflow: hidden;
     position: fixed;
     bottom: 0;
     width: 100%;
+    border: 2px solid rgb(240, 205, 9);
   }
   
   /* Style the links inside the navigation bar */
   .navbar a {
     float: left;
     display: block;
-    color: #f2f2f2;
+    color: #af1818;
     text-align: center;
     padding: 14px 16px;
+    width: 20%;
     text-decoration: none;
     font-size: 17px;
+    border-right: 1px solid rgb(243, 208, 7);
+  }
+
+  .navbar a:last-child{
+    border-right: none;
   }
   
   /* Change the color of links on hover */
@@ -34,3 +41,11 @@
   .navbar .icon {
     display: none;
   }
+
+  /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
+@media screen and (max-width: 400px) {
+  .navbar a{
+    font-size: 10px;
+    padding: 10px 16px;
+  }
+}

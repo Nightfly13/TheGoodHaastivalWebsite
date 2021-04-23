@@ -12,8 +12,9 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
       <QRReader />
-        <h1 className={styles.title}>
-        SCAN THE CODE YES WORKS NOW ~~~~~~(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
+        <h1 className={styles.title}
+        style={{"text-align": "center"}}>
+        SCAN THE CODE
         </h1>
         <div className={styles.grid}>
         </div>
