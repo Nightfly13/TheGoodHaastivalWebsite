@@ -4,8 +4,7 @@ import styles from "../styles/Home.module.css";
 import Navbar from '../components/navbar.js'
 
 class Page extends Component {
-  state = { largeCounter: 0, smallCounter: 0, allTickets: 0 };
-
+  state = { largeCounter: 0, smallCounter: 0, allTickets: 0, customerTickets: 20};
   mealCount = (e) => {
     if (e.target.id.includes("Large")) {
       let newCount = e.target.id.includes("inc") ? this.state.largeCounter + 1 : Math.max(this.state.largeCounter - 1, 0)
@@ -25,6 +24,15 @@ class Page extends Component {
       }));
     }
   };
+  ticketCounter = (e) => {
+    if (this.state.allTickets <= this.state.customerTickets) {
+      this.setState(({ customerTickets }) => ({
+        customerTickets: customerTickets-=this.state.allTickets
+      }));
+    } else {
+      alert("Not enough tickets!")
+    }
+  }
   //counter: e.name.inludes ? counter + 1 : counter-1
   render() {
     return (
@@ -35,7 +43,7 @@ class Page extends Component {
         </Head>
 
         <main className={styles.main}>
-          <h1 className={styles.title}>Tickets: []</h1>
+          <h1 className={styles.title}>Tickets: {this.state.customerTickets}</h1>
           <div>
             <button id="subLarge" onClick={this.mealCount}>
               -
@@ -56,7 +64,7 @@ class Page extends Component {
           </div>
           <div>
             <p>Total amount: {this.state.allTickets}</p>
-            <button id="confirm">Confirm</button>
+            <button id="confirm" onClick={this.ticketCounter}>Confirm</button>
           </div>
           <div className={styles.grid}></div>
           <Navbar/>
