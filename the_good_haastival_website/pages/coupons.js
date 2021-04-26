@@ -43,29 +43,29 @@ class Page extends Component {
         </Head>
 
         <main className={styles.main}>
-          <h1 className={styles.title}>Tickets: {this.state.customerTickets}</h1>
-          <div>
-            <button id="subLarge" onClick={this.mealCount}>
-              -
-            </button>
-            <p id="largeMeal">{this.state.largeCounter}</p>
-            <button id="incLarge" onClick={this.mealCount}>
-              +
-            </button>
-          </div>
-          <div>
-            <button id="subSmall" onClick={this.mealCount}>
-              -
-            </button>
-            <p id="smallMeal">{this.state.smallCounter}</p>
-            <button id="incSmall" onClick={this.mealCount}>
-              +
-            </button>
-          </div>
-          <div>
-            <p>Total amount: {this.state.allTickets}</p>
-            <button id="confirm" onClick={this.ticketCounter}>Confirm</button>
-          </div>
+          <table className={styles.table}>
+            <tr>
+              <td className={styles.td} colspan="4">Tickets: {this.state.customerTickets}</td>
+            </tr>
+            <tr>
+              <td className={styles.td}>Large</td>
+              <td className={styles.td}><button className={styles.button} id="subLarge" onClick={this.mealCount}>-</button></td>
+              <td className={styles.td} id="largeMeal">{this.state.largeCounter}</td>
+              <td className={styles.td}><button className={styles.button} id="incLarge" onClick={this.mealCount}>+</button></td>
+            </tr>
+            <tr>
+              <td className={styles.td}>Small</td>
+              <td className={styles.td}><button className={styles.button} id="subSmall" onClick={this.mealCount}>-</button></td>
+              <td className={styles.td} id="smallMeal">{this.state.smallCounter}</td>
+              <td className={styles.td}><button className={styles.button} id="incSmall" onClick={this.mealCount}>+</button></td>
+            </tr>
+            <tr>
+              <td className={styles.td} colspan="4">Total amount: {this.state.allTickets}</td>
+            </tr>
+            <tr>
+                <td className={styles.td} colspan="4"><button className={styles.button} id="confirm" onClick={this.ticketCounter}>Confirm</button></td>
+            </tr>
+          </table>
           <div className={styles.grid}></div>
           <Navbar/>
         </main>

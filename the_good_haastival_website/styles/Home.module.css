@@ -120,3 +120,21 @@
     flex-direction: column;
   }
 } */
+
+.table{
+  margin-left: 20%;
+  margin-top: 20%;
+  width: 60%;
+  height: 50%;
+  border-spacing:0 20px ;
+}
+
+.td{
+  text-align: center;
+  font-size: 30px;
+}
+
+.button{
+  width: 60px;
+  height: 30px;
+}
