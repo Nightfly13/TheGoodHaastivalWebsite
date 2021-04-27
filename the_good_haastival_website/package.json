@@ -8,6 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@react-firebase/database": "^0.3.11",
+    "firebase": "^8.4.1",
     "next": "10.1.3",
     "qr-scanner": "^1.2.0",
     "react": "17.0.2",
