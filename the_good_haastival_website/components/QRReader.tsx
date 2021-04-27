@@ -30,6 +30,24 @@ class QRReader extends Component {
 
   handleScan = (data) => {
     if (data) {
+      var regex = /^[A-F\d]{8}-([A-F\d]{4}-){3}[A-F\d]{12}$/gi;
+      if (data.match(regex)) {
+        database
+          .ref("coupons/" + data)
+          .once("value")
+          .then(function (snapshot) {
+            if (snapshot.exists()) {
+/*               var ticketCount = snapshot.val();
+              console.log(ticketCount);
+              redirect to coupons page */
+            } else {
+              console.log("Not found in DB, but passed regex")
+            }
+          });
+      } else {
+        data = "The code appears to be not festival related. Please try again!";
+      }
+
       this.setState({
         result: data,
       });
