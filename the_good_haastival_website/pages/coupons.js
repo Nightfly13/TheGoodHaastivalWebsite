@@ -9,7 +9,7 @@ import {
   FirebaseDatabaseTransaction,
 } from "@react-firebase/database";
 import { firebaseConfig } from "../config";
-import Navbar from '../components/navbar.js'
+import Navbar from "../components/navbar.js";
 
 class Page extends Component {
   state = {
@@ -50,71 +50,115 @@ class Page extends Component {
         </Head>
 
         <main className={styles.main}>
-          <FirebaseDatabaseProvider firebase={firebase} {...firebaseConfig}>
-            <FirebaseDatabaseNode
-              path="coupons/F2795523-7062-4146-A963-AF1FD89AFBB7"
-              //limitToFirst={this.state.limit}
-              orderByKey
-              // orderByValue={"created_on"}
-            >
-              {(d) => {
-                return (
-                  <React.Fragment>
-                    <h1 className={styles.title}>Tickets: {d.value}</h1>
-                  </React.Fragment>
-                );
-              }}
-            </FirebaseDatabaseNode>
-          </FirebaseDatabaseProvider>
-          <div>
-            <button id="subLarge" onClick={this.mealCount}>
-              -
-            </button>
-            <p id="largeMeal">{this.state.largeTicketsToBuy}</p>
-            <button id="incLarge" onClick={this.mealCount}>
-              +
-            </button>
-          </div>
-          <div>
-            <button id="subSmall" onClick={this.mealCount}>
-              -
-            </button>
-            <p id="smallMeal">{this.state.smallTicketsToBuy}</p>
-            <button id="incSmall" onClick={this.mealCount}>
-              +
-            </button>
-          </div>
-          <div>
-            <p>Total amount: {this.state.totalTicketsToBuy}</p>
+          <table className={styles.table}>
+            <FirebaseDatabaseProvider firebase={firebase} {...firebaseConfig}>
+              <FirebaseDatabaseNode
+                path="coupons/F2795523-7062-4146-A963-AF1FD89AFBB7"
+                //limitToFirst={this.state.limit}
+                orderByKey
+                // orderByValue={"created_on"}
+              >
+                {(d) => {
+                  return (
+                    <React.Fragment>
+                      <tr>
+                        <td className={styles.td} colspan="4">
+                          Tickets: {d.value}
+                        </td>
+                      </tr>
+                    </React.Fragment>
+                  );
+                }}
+              </FirebaseDatabaseNode>
+            </FirebaseDatabaseProvider>
+            <tr>
+            <td className={styles.td}>Large</td>
+              <td className={styles.td}>
+                <button
+                  className={styles.button}
+                  id="subLarge"
+                  onClick={this.mealCount}
+                >
+                  -
+                </button>
+              </td>
+              <td className={styles.td} id="largeMeal">
+                {this.state.largeTicketsToBuy}
+              </td>
+              <td className={styles.td}>
+                <button
+                  className={styles.button}
+                  id="incLarge"
+                  onClick={this.mealCount}
+                >
+                  +
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td className={styles.td}>Small</td>
+              <td className={styles.td}>
+                <button
+                  className={styles.button}
+                  id="subSmall"
+                  onClick={this.mealCount}
+                >
+                  -
+                </button>
+              </td>
+              <td className={styles.td} id="smallMeal">
+                {this.state.smallTicketsToBuy}
+              </td>
+              <td className={styles.td}>
+                <button
+                  className={styles.button}
+                  id="incSmall"
+                  onClick={this.mealCount}
+                >
+                  +
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td className={styles.td} colspan="4">
+                Total amount: {this.state.totalTicketsToBuy}
+              </td>
+            </tr>
             <FirebaseDatabaseProvider firebase={firebase} {...firebaseConfig}>
               <FirebaseDatabaseTransaction path="coupons/F2795523-7062-4146-A963-AF1FD89AFBB7">
                 {({ runTransaction }) => {
                   return (
-                    <button id="confirm"
-                      onClick={() => {
-                        runTransaction({
-                          reducer: (val) => {
-                            if (val === null) {
-                              return 0;
-                            } else {
-                              if (val >= this.state.totalTicketsToBuy) {
-                                return val - this.state.totalTicketsToBuy;
-                              } else {
-                                alert("Not enough tickets!");
-                                return val;
-                              }
-                            }
-                          },
-                        });
-                      }}
-                    >
-                      Confirm
-                    </button>
+                    <tr>
+                      <td className={styles.td} colspan="4">
+                        <button
+                          id="confirm"
+                          className={styles.button}
+                          onClick={() => {
+                            runTransaction({
+                              reducer: (val) => {
+                                if (val === null) {
+                                  return 0;
+                                } else {
+                                  if (val >= this.state.totalTicketsToBuy) {
+                                    return val - this.state.totalTicketsToBuy;
+                                  } else {
+                                    alert("Not enough tickets!");
+                                    return val;
+                                  }
+                                }
+                              },
+                            });
+                          }}
+                        >
+                          Confirm
+                        </button>
+                      </td>
+                    </tr>
                   );
                 }}
               </FirebaseDatabaseTransaction>
             </FirebaseDatabaseProvider>
-          </div>
+          </table>
           <div className={styles.grid}></div>
           <Navbar/>
         </main>
