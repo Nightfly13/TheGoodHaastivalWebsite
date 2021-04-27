@@ -1,7 +1,7 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import styles from '../styles/Home.module.css'
-import QRReader from "../components/QRReader.tsx";
+import QRReader from "../components/QRReader.tsx"
+import Navbar from '../components/navbar.js'
 
 export default function Home() {
   return (
@@ -12,17 +12,13 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
       <QRReader />
-        <h1 className={styles.title}>
-        SCAN THE CODE YES WORKS NOW ~~~~~~(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
+        <h1 className={styles.title}
+        style={{"text-align": "center"}}>
+        SCAN THE CODE
         </h1>
         <div className={styles.grid}>
         </div>
-        <div class="navbar" id="myNavbar">
-          <Link href={'/qr'}>QR</Link>
-          <Link href={'/coupons'}>Coupons</Link>
-          <Link href={'/refunds'}>Refunds</Link>
-          <Link href={'/pictures'}>Pics</Link>
-        </div>
+        <Navbar/>
       </main>
     </div>
   )

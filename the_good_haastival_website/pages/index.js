@@ -1,4 +1,6 @@
-import Head from "next/head";
+import Head from 'next/head'
+import styles from '../styles/Home.module.css'
+import Navbar from '../components/navbar.js'
 
 export default function Home() {
   return (
@@ -7,9 +9,13 @@ export default function Home() {
         <title>Page Title</title>
       </Head>
 
-      <main >
-        <div id="root"></div>
-        <script src="./firbasetest.js"></script>
+      <main className={styles.main}>
+        <h1 className={styles.title}>
+          Welcome to The *SlightlyMediocre* Haastival website!
+        </h1>
+        <div className={styles.grid}>
+        </div>
+        <Navbar/>
       </main>
     </div>
   );
