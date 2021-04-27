@@ -1,6 +1,16 @@
 import React, { Component } from "react";
 const isBrowser = typeof window != "undefined";
+import { firebaseConfig } from "../config.js";
+import firebase from "firebase/app";
+import "firebase/database";
 
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app(); // if already initialized, use that one
+}
+
+let database = firebase.database();
 var videoPreviewStyle = {
   width: "100%",
   "max-width": "300px",
