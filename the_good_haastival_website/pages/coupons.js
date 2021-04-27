@@ -7,18 +7,15 @@ import "firebase/database";
 import {
   FirebaseDatabaseProvider,
   FirebaseDatabaseNode,
-  FirebaseDatabaseTransaction
+  FirebaseDatabaseTransaction,
 } from "@react-firebase/database";
 import { firebaseConfig } from "../config";
-
-const s = (a) => JSON.stringify(a, null, 2);
 
 class Page extends Component {
   state = {
     largeTicketsToBuy: 0,
     smallTicketsToBuy: 0,
     totalTicketsToBuy: 0,
-    customerCurrentTickets: 0,
   };
   mealCount = (e) => {
     if (e.target.id.includes("Large")) {
@@ -43,15 +40,6 @@ class Page extends Component {
       }));
     }
   };
-  buyTickets = (e) => {
-    if (this.state.totalTicketsToBuy <= this.state.customerCurrentTickets) {
-      this.setState(({ customerCurrentTickets }) => ({
-        customerCurrentTickets: (customerCurrentTickets -= this.state.totalTicketsToBuy),
-      }));
-    } else {
-      alert("Not enough tickets!");
-    }
-  };
   //counter: e.name.inludes ? counter + 1 : counter-1
   render() {
     return (
@@ -70,7 +58,6 @@ class Page extends Component {
               // orderByValue={"created_on"}
             >
               {(d) => {
-                this.state.customerCurrentTickets = d.value;
                 return (
                   <React.Fragment>
                     <h1 className={styles.title}>Tickets: {d.value}</h1>
@@ -98,35 +85,35 @@ class Page extends Component {
             </button>
           </div>
           <div>
-          <FirebaseDatabaseTransaction path={"coupons/F2795523-7062-4146-A963-AF1FD89AFBB7"}>
-        {({ runTransaction }) => {
-          return (
-            <div>
-              <button
-                onClick={() => {
-                  runTransaction({
-                    reducer: val => {
-                      if (val === null) {
-                        return 1;
-                      } else {
-                        return val + 1;
-                      }
-                    }
-                  }).then(() => {
-                    console.log("Ran transaction");
-                  });
-                }}
-              >
-                Click me to run transaction
-              </button>
-            </div>
-          );
-        }}
-      </FirebaseDatabaseTransaction>
             <p>Total amount: {this.state.totalTicketsToBuy}</p>
-            <button id="confirm" onClick={this.buyTickets}>
-              Confirm
-            </button>
+            <FirebaseDatabaseProvider firebase={firebase} {...firebaseConfig}>
+              <FirebaseDatabaseTransaction path="coupons/F2795523-7062-4146-A963-AF1FD89AFBB7">
+                {({ runTransaction }) => {
+                  return (
+                    <button id="confirm"
+                      onClick={() => {
+                        runTransaction({
+                          reducer: (val) => {
+                            if (val === null) {
+                              return 0;
+                            } else {
+                              if (val > this.state.totalTicketsToBuy) {
+                                return val - this.state.totalTicketsToBuy;
+                              } else {
+                                alert("Not enough tickets!");
+                                return val;
+                              }
+                            }
+                          },
+                        });
+                      }}
+                    >
+                      Confirm
+                    </button>
+                  );
+                }}
+              </FirebaseDatabaseTransaction>
+            </FirebaseDatabaseProvider>
           </div>
           <div className={styles.grid}></div>
           <div class="navbar" id="myNavbar">
