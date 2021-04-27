@@ -97,7 +97,7 @@ class Page extends Component {
                             if (val === null) {
                               return 0;
                             } else {
-                              if (val > this.state.totalTicketsToBuy) {
+                              if (val >= this.state.totalTicketsToBuy) {
                                 return val - this.state.totalTicketsToBuy;
                               } else {
                                 alert("Not enough tickets!");
