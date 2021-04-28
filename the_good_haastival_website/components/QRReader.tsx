@@ -30,16 +30,14 @@ class QRReader extends Component {
 
   handleScan = (data) => {
     if (data) {
-      var regex = /^([A-F\d]{8}-([A-F\d]{4}-){3}[A-F\d]{12}|[A-F\d]{16})$/gi; //4e339143c026fefd
+      var regex = /^([A-F\d]{8}-([A-F\d]{4}-){3}[A-F\d]{12}|[A-F\d]{16})$/gi;
       if (data.match(regex)) {
         database
           .ref("coupons/" + data)
           .once("value")
           .then(function (snapshot) {
             if (snapshot.exists()) {
-/*               var ticketCount = snapshot.val();
-              console.log(ticketCount);
-              redirect to coupons page */
+              window.location.href = '/coupons?id='+data;
             } else {
               console.log("Not found in DB, but passed regex")
             }
