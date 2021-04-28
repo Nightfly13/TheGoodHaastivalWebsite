@@ -3,6 +3,7 @@ const isBrowser = typeof window != "undefined";
 import { firebaseConfig } from "../config.js";
 import firebase from "firebase/app";
 import "firebase/database";
+import { hydrate, render } from "react-dom";
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
@@ -13,7 +14,7 @@ if (!firebase.apps.length) {
 let database = firebase.database();
 var videoPreviewStyle = {
   width: "100%",
-  "max-width": "300px",
+  maxWidth: "300px",
   height: "20%",
   display: "block",
   margin: "0 auto",
@@ -37,9 +38,9 @@ class QRReader extends Component {
           .once("value")
           .then(function (snapshot) {
             if (snapshot.exists()) {
-              window.location.href = '/coupons?id='+data;
+              window.location.href = "/coupons?id=" + data;
             } else {
-              console.log("Not found in DB, but passed regex")
+              console.log("Not found in DB, but passed regex");
             }
           });
       } else {
