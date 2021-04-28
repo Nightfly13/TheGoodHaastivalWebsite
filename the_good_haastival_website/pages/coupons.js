@@ -10,6 +10,11 @@ import {
 } from "@react-firebase/database";
 import { firebaseConfig } from "../config";
 import Navbar from "../components/navbar.js";
+const isBrowser = typeof window != "undefined";
+
+if (isBrowser) {
+  var id = new URLSearchParams(window.location.search).get("id");
+}
 
 class Page extends Component {
   state = {
@@ -53,7 +58,7 @@ class Page extends Component {
           <table className={styles.table}>
             <FirebaseDatabaseProvider firebase={firebase} {...firebaseConfig}>
               <FirebaseDatabaseNode
-                path="coupons/F2795523-7062-4146-A963-AF1FD89AFBB7"
+                path={"coupons/" + id}
                 //limitToFirst={this.state.limit}
                 orderByKey
                 // orderByValue={"created_on"}
@@ -125,7 +130,7 @@ class Page extends Component {
               </td>
             </tr>
             <FirebaseDatabaseProvider firebase={firebase} {...firebaseConfig}>
-              <FirebaseDatabaseTransaction path="coupons/F2795523-7062-4146-A963-AF1FD89AFBB7">
+              <FirebaseDatabaseTransaction path={"coupons/" + id}>
                 {({ runTransaction }) => {
                   return (
                     <tr>
@@ -134,12 +139,14 @@ class Page extends Component {
                           id="confirm"
                           className={styles.button}
                           onClick={() => {
+                            let successFlag = false;
                             runTransaction({
                               reducer: (val) => {
                                 if (val === null) {
                                   return 0;
                                 } else {
                                   if (val >= this.state.totalTicketsToBuy) {
+                                    successFlag = true;
                                     return val - this.state.totalTicketsToBuy;
                                   } else {
                                     alert("Not enough tickets!");
@@ -147,7 +154,8 @@ class Page extends Component {
                                   }
                                 }
                               },
-                            });
+                            });  
+                            window.location.href = '/qr?succ='+successFlag;
                           }}
                         >
                           Confirm
