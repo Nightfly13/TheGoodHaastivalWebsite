@@ -30,7 +30,7 @@ class QRReader extends Component {
 
   handleScan = (data) => {
     if (data) {
-      var regex = /^[A-F\d]{8}-([A-F\d]{4}-){3}[A-F\d]{12}$/gi;
+      var regex = /^([A-F\d]{8}-([A-F\d]{4}-){3}[A-F\d]{12}|[A-F\d]{16})$/gi; //4e339143c026fefd
       if (data.match(regex)) {
         database
           .ref("coupons/" + data)
