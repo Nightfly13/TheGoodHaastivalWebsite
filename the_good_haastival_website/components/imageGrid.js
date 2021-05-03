@@ -29,11 +29,10 @@ class ImageGrid extends React.Component {
 
     for(let i=0; i<res.items.length; i++){
       await res.items[i].getDownloadURL().then((url) => fireImages.push(url));
+      this.setState({
+        images: fireImages,
+      });
     }
-
-    this.setState({
-      images: fireImages,
-    });
   };
 
   componentDidMount() {
