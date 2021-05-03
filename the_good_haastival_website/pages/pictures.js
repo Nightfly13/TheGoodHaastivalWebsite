@@ -2,7 +2,7 @@ import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Navbar from "../components/navbar.js";
 import React from "react";
-import Images from '../components/images.js'
+import Images from '../components/imageGrid.js'
 
 export default function Home() {
   return (
@@ -14,7 +14,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-        React is officially the worst ever!!!
+        Images
         </h1>
         <Images/>
         <div className={styles.grid}>

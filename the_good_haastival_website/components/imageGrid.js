@@ -10,10 +10,11 @@ if (!firebase.apps.length) {
   firebase.app(); // if already initialized, use that one
 }
 
-class HelloMessage extends React.Component {
+class ImageGrid extends React.Component {
   state = {
     images: [],
   };
+
 
   getImages() {
     firebase
@@ -23,12 +24,13 @@ class HelloMessage extends React.Component {
       .then((x) => this.setImages(x));
   }
 
-  setImages = (res) => {
+  setImages = async (res) => {
     let fireImages = [];
 
-    res.items.forEach((itemRef) => {
-      let url = itemRef.getDownloadURL().then((url) => fireImages.push(url));
-    });
+    for(let i=0; i<res.items.length; i++){
+      await res.items[i].getDownloadURL().then((url) => fireImages.push(url));
+    }
+
     this.setState({
       images: fireImages,
     });
@@ -39,11 +41,11 @@ class HelloMessage extends React.Component {
   }
 
   render() {
-    const imageTags = this.state.images.map((elem) => (
-      <img src={elem} style={{ width: 50 + "px", height: 50 + "px" }}></img>
+    const imageTags = this.state.images.map((elem, idx) => (
+        <img key={idx} src={elem} style={{width:32 + "vw", height:33+"vw"}}></img>
     ));
     return <div>{imageTags}</div>;
   }
 }
 
-export default HelloMessage;
+export default ImageGrid;
