@@ -67,6 +67,10 @@ class ImageGrid extends React.Component {
               }
             }>x</span>
             <img id={"imgNr"+idx.toString()} className={imgStyling.modalContent}/>
+            <div className={imgStyling.buttonDiv}>
+              <button className={`${imgStyling.button} ${imgStyling.leftButton}`}>Delete</button>
+              <button className={`${imgStyling.button} ${imgStyling.rightButton}`}>Download</button>
+            </div>
           </div>
       </div>
     ));

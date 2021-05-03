@@ -33,9 +33,29 @@
   height: 80%;
 }
 
+.buttonDiv {
+  margin: auto;
+  margin-top: 20px;
+
+  display: block;
+  width: 250px;
+}
+
+.button {
+  width: 100px;
+  height: 50px;
+  color: white;
+}
+.rightButton {
+  margin-left: 50px;
+  background-color: green;
+}
+.leftButton {
+  background-color: red;
+}
 
 /* Add Animation - Zoom in the Modal */
-.modal-content {
+.modalContent {
   animation-name: zoom;
   animation-duration: 0.6s;
 }
