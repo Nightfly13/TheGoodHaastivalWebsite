@@ -1,12 +1,19 @@
 import React, { Component } from "react";
 const isBrowser = typeof window != "undefined";
-import { firebaseConfig } from "../config.js";
 import firebase from "firebase/app";
 import "firebase/database";
 import { hydrate, render } from "react-dom";
 
 if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
+  firebase.initializeApp({
+    apiKey: process.env.NEXT_PUBLIC_APIKEY,
+    authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN,
+    databaseURL: process.env.NEXT_PUBLIC_DATABASEURL,
+    projectId: process.env.NEXT_PUBLIC_PROJECTID,
+    storageBucket: process.env.NEXT_PUBLIC_STORAGEBUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_MESSAGINGSENDERID,
+    appId: process.env.NEXT_PUBLIC_APPID,
+  });
 } else {
   firebase.app(); // if already initialized, use that one
 }
