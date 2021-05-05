@@ -8,7 +8,6 @@ import {
   FirebaseDatabaseNode,
   FirebaseDatabaseTransaction,
 } from "@react-firebase/database";
-import { firebaseConfig } from "../config";
 import Navbar from "../components/navbar.js";
 const isBrowser = typeof window != "undefined";
 
@@ -56,7 +55,18 @@ class Page extends Component {
 
         <main className={styles.main}>
           <table className={styles.table}>
-            <FirebaseDatabaseProvider firebase={firebase} {...firebaseConfig}>
+            <FirebaseDatabaseProvider
+              firebase={firebase}
+              {...{
+                apiKey: process.env.NEXT_PUBLIC_APIKEY,
+                authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN,
+                databaseURL: process.env.NEXT_PUBLIC_DATABASEURL,
+                projectId: process.env.NEXT_PUBLIC_PROJECTID,
+                storageBucket: process.env.NEXT_PUBLIC_STORAGEBUCKET,
+                messagingSenderId: process.env.NEXT_PUBLIC_MESSAGINGSENDERID,
+                appId: process.env.NEXT_PUBLIC_APPID,
+              }}
+            >
               <FirebaseDatabaseNode
                 path={"coupons/" + id}
                 //limitToFirst={this.state.limit}
@@ -77,7 +87,7 @@ class Page extends Component {
               </FirebaseDatabaseNode>
             </FirebaseDatabaseProvider>
             <tr>
-            <td className={styles.td}>Large</td>
+              <td className={styles.td}>Large</td>
               <td className={styles.td}>
                 <button
                   className={styles.button}
@@ -129,7 +139,18 @@ class Page extends Component {
                 Total amount: {this.state.totalTicketsToBuy}
               </td>
             </tr>
-            <FirebaseDatabaseProvider firebase={firebase} {...firebaseConfig}>
+            <FirebaseDatabaseProvider
+              firebase={firebase}
+              {...{
+                apiKey: process.env.NEXT_PUBLIC_APIKEY,
+                authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN,
+                databaseURL: process.env.NEXT_PUBLIC_DATABASEURL,
+                projectId: process.env.NEXT_PUBLIC_PROJECTID,
+                storageBucket: process.env.NEXT_PUBLIC_STORAGEBUCKET,
+                messagingSenderId: process.env.NEXT_PUBLIC_MESSAGINGSENDERID,
+                appId: process.env.NEXT_PUBLIC_APPID,
+              }}
+            >
               <FirebaseDatabaseTransaction path={"coupons/" + id}>
                 {({ runTransaction }) => {
                   return (
@@ -154,8 +175,8 @@ class Page extends Component {
                                   }
                                 }
                               },
-                            });  
-                            window.location.href = '/qr?succ='+successFlag;
+                            });
+                            window.location.href = "/qr?succ=" + successFlag;
                           }}
                         >
                           Confirm
@@ -168,7 +189,7 @@ class Page extends Component {
             </FirebaseDatabaseProvider>
           </table>
           <div className={styles.grid}></div>
-          <Navbar/>
+          <Navbar />
         </main>
       </div>
     );
