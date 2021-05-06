@@ -4,17 +4,17 @@ import React from "react";
 import imgStyling from "./imageGrid.module.css";
 const isBrowser = typeof window != "undefined";
 
-console.log(process.env.NEXT_PUBLIC_STORAGEBUCKET)
+console.log(process.env.NEXT_PUBLIC_STORAGEBUCKET);
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
-    apiKey: process.env.NEXT_PUBLIC_APIKEY,
-    authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN,
-    databaseURL: process.env.NEXT_PUBLIC_DATABASEURL,
-    projectId: process.env.NEXT_PUBLIC_PROJECTID,
+    apiKey: process.env.APIKEY,
+    authDomain: process.env.AUTHDOMAIN,
+    databaseURL: process.env.DATABASEURL,
+    projectId: process.env.PROJECTID,
     storageBucket: process.env.NEXT_PUBLIC_STORAGEBUCKET,
-    messagingSenderId: process.env.NEXT_PUBLIC_MESSAGINGSENDERID,
-    appId: process.env.NEXT_PUBLIC_APPID,
+    messagingSenderId: process.env.MESSAGINGSENDERID,
+    appId: process.env.APPID,
   });
 } else {
   firebase.app(); // if already initialized, use that one
@@ -142,6 +142,11 @@ class ImageGrid extends React.Component {
     }
   };
 
+  hideModal = (idx) => {
+    var currentModal = document.getElementById("myModal" + idx);
+    currentModal.style.display = "none";
+  };
+
   render() {
     const imageTags = this.state.images.map((elem, idx) => (
       <div key={"outerDiv" + idx.toString()} style={{ display: "inline" }}>
@@ -171,10 +176,10 @@ class ImageGrid extends React.Component {
             <button
               className={`${imgStyling.button} ${imgStyling.leftButton}`}
               onClick={() => {
-                var currentModal = document.getElementById("myModal" + idx);
                 var currentMainImg = document.getElementById("mainImg" + idx);
 
-                currentModal.style.display = "none";
+                this.hideModal(idx)
+
 
                 let timeOut = setTimeout(() => {
                   currentMainImg.style.display = "none";
@@ -196,6 +201,9 @@ class ImageGrid extends React.Component {
               onClick={() => {
                 this.handleDownload(elem, "haastivalImg" + idx + ".jpg");
                 this.moveFile(elem, "verified-images");
+                this.hideModal(idx)
+                var currentMainImg = document.getElementById("mainImg" + idx);
+                currentMainImg.style.display = "none";
                 this.showModal(idx + 1);
               }}
             >
