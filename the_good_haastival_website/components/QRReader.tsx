@@ -6,13 +6,13 @@ import { hydrate, render } from "react-dom";
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
-    apiKey: process.env.NEXT_PUBLIC_APIKEY,
-    authDomain: process.env.NEXT_PUBLIC_AUTHDOMAIN,
-    databaseURL: process.env.NEXT_PUBLIC_DATABASEURL,
-    projectId: process.env.NEXT_PUBLIC_PROJECTID,
+    apiKey: process.env.APIKEY,
+    authDomain: process.env.AUTHDOMAIN,
+    databaseURL: process.env.DATABASEURL,
+    projectId: process.env.PROJECTID,
     storageBucket: process.env.NEXT_PUBLIC_STORAGEBUCKET,
-    messagingSenderId: process.env.NEXT_PUBLIC_MESSAGINGSENDERID,
-    appId: process.env.NEXT_PUBLIC_APPID,
+    messagingSenderId: process.env.MESSAGINGSENDERID,
+    appId: process.env.APPID,
   });
 } else {
   firebase.app(); // if already initialized, use that one
