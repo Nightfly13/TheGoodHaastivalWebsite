@@ -1,6 +1,14 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import Navbar from '../components/navbar.js'
+import Head from 'next/head';
+import Navbar from '../components/navbar.js';
+import checkIfTokenIsValid from "../lib/checkToken";
+import styles from '../styles/Home.module.css';
+
+const isBrowser = typeof window != "undefined";
+
+if (isBrowser && !checkIfTokenIsValid()) {
+  console.log("test")
+  window.location.href = "/login"
+}
 
 export default function Home() {
   return (

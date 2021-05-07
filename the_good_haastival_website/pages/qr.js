@@ -1,8 +1,14 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import QRReader from "../components/QRReader.tsx";
 import Navbar from "../components/navbar.js";
+import QRReader from "../components/QRReader.tsx";
+import checkIfTokenIsValid from "../lib/checkToken";
+import styles from "../styles/Home.module.css";
 const isBrowser = typeof window != "undefined";
+
+if (isBrowser && !checkIfTokenIsValid()) {
+  console.log("test")
+  window.location.href = "/login"
+}
 
 if (isBrowser) {
   var success = new URLSearchParams(window.location.search).get("succ");
