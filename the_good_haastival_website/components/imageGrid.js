@@ -1,5 +1,5 @@
-import "firebase/storage";
 import firebase from "firebase/app";
+import "firebase/storage";
 import React from "react";
 import imgStyling from "./imageGrid.module.css";
 const isBrowser = typeof window != "undefined";
@@ -10,7 +10,7 @@ if (!firebase.apps.length) {
   firebase.initializeApp({
     apiKey: process.env.APIKEY,
     authDomain: process.env.AUTHDOMAIN,
-    databaseURL: process.env.DATABASEURL,
+    databaseURL: process.env.NEXT_PUBLIC_DATABASEURL,
     projectId: process.env.PROJECTID,
     storageBucket: process.env.NEXT_PUBLIC_STORAGEBUCKET,
     messagingSenderId: process.env.MESSAGINGSENDERID,

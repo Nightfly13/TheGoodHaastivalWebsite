@@ -8,7 +8,7 @@ if (!firebase.apps.length) {
   firebase.initializeApp({
     apiKey: process.env.APIKEY,
     authDomain: process.env.AUTHDOMAIN,
-    databaseURL: process.env.DATABASEURL,
+    databaseURL: process.env.NEXT_PUBLIC_DATABASEURL,
     projectId: process.env.PROJECTID,
     storageBucket: process.env.NEXT_PUBLIC_STORAGEBUCKET,
     messagingSenderId: process.env.MESSAGINGSENDERID,
