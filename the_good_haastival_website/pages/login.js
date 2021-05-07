@@ -28,23 +28,16 @@ class LoginPage extends Component {
 
 
   checkUserLoginInfo = async (username, password) => {
-    console.log("Checking login info");
 
     let hash = sha256(username + password).toString();
-    console.log("Hash: "+hash);
     let retVal = await firebase.database().ref("hashes").child(hash).once("value");
-    console.log("retVal:" + retVal);
-    console.log(retVal.exists() ? "value exists" : "value does not exist");
 
     return retVal.exists()
   };
 
   generateTokenCookie = () => {
-    console.log("generating cookie");
     var number = Math.floor(Math.random() * 2 ** 32) * 17;
-    console.log("random number is: " + number);
     var encrypted = AES.encrypt( number.toString(), process.env.AES_KEY ).toString();
-    console.log("Token is: " + encrypted)
     var d = new Date();
     d.setTime(d.getTime() + 3 * 60 * 60 * 1000);
     var expires = "expires=" + d.toUTCString();

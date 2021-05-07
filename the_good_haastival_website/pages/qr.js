@@ -6,7 +6,7 @@ import styles from "../styles/Home.module.css";
 const isBrowser = typeof window != "undefined";
 
 if (isBrowser && !checkIfTokenIsValid()) {
-  console.log("test")
+  
   window.location.href = "/login"
 }
 

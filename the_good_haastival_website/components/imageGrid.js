@@ -4,7 +4,6 @@ import React from "react";
 import imgStyling from "./imageGrid.module.css";
 const isBrowser = typeof window != "undefined";
 
-console.log(process.env.NEXT_PUBLIC_STORAGEBUCKET);
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
