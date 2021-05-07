@@ -1,19 +1,75 @@
+import sha256 from "crypto-js/sha256";
+import firebase from "firebase/app";
+import "firebase/database";
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import Navbar from "../components/navbar.js";
 import React, { Component } from "react";
+import checkIfTokenIsValid from "../lib/checkToken";
+import styles from "../styles/Home.module.css";
+var AES = require("crypto-js/aes");
+const isBrowser = typeof window != "undefined";
 
-
+if (isBrowser && checkIfTokenIsValid()) {
+  window.location.href = "/"
+}
+if (!firebase.apps.length) {
+  firebase.initializeApp({
+    apiKey: process.env.APIKEY,
+    authDomain: process.env.AUTHDOMAIN,
+    databaseURL: process.env.NEXT_PUBLIC_DATABASEURL,
+    projectId: process.env.PROJECTID,
+    storageBucket: process.env.NEXT_PUBLIC_STORAGEBUCKET,
+    messagingSenderId: process.env.MESSAGINGSENDERID,
+    appId: process.env.APPID,
+  });
+} else {
+  firebase.app(); // if already initialized, use that one
+}
 class LoginPage extends Component {
 
-  onSubmit = async (event) => {
-    event.preventDefault()
 
-    console.log("submit")
-    console.log(event)
-    console.log(event.target.usrname.value)
-    console.log(event.target.passwd.value)
-  }
+  checkUserLoginInfo = async (username, password) => {
+    console.log("Checking login info");
+
+    let hash = sha256(username + password).toString();
+    console.log("Hash: "+hash);
+    let retVal = await firebase.database().ref("hashes").child(hash).once("value");
+    console.log("retVal:" + retVal);
+    console.log(retVal.exists() ? "value exists" : "value does not exist");
+
+    return retVal.exists()
+  };
+
+  generateTokenCookie = () => {
+    console.log("generating cookie");
+    var number = Math.floor(Math.random() * 2 ** 32) * 17;
+    console.log("random number is: " + number);
+    var encrypted = AES.encrypt( number.toString(), process.env.AES_KEY ).toString();
+    console.log("Token is: " + encrypted)
+    var d = new Date();
+    d.setTime(d.getTime() + 3 * 60 * 60 * 1000);
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = "token=" + encrypted + ";" + expires;
+  };
+
+  logUserIn = () => {
+    window.location.href = "/"
+  };
+
+  onSubmit = async (event) => {
+    event.preventDefault();
+
+    if (
+      await this.checkUserLoginInfo(
+        event.target.usrname.value,
+        event.target.passwd.value
+      )
+    ) {
+      this.generateTokenCookie();
+      this.logUserIn();
+    } else {
+      alert("rip");
+    }
+  };
 
   render() {
     return (
@@ -33,10 +89,9 @@ class LoginPage extends Component {
             <label>Password: </label>
             <input type="password" id="passwd" name="passwd" required />
             <br />
-            <button type="submit">Register</button>
+            <button type="submit">Submit</button>
           </form>
           <div className={styles.grid}></div>
-          <Navbar />
         </main>
       </div>
     );

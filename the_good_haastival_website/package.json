@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@react-firebase/database": "^0.3.11",
+    "crypto-js": "^4.0.0",
     "firebase": "^8.4.3",
     "js-file-download": "^0.4.12",
     "next": "10.1.3",
