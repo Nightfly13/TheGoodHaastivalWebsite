@@ -3,13 +3,17 @@ import firebase from "firebase/app";
 import "firebase/database";
 import Head from "next/head";
 import React, { Component } from "react";
-import checkIfTokenIsValid from "../lib/checkToken";
+import * as checkToken from "../lib/checkToken";
 import styles from "../styles/Home.module.css";
 var AES = require("crypto-js/aes");
 const isBrowser = typeof window != "undefined";
 
-if (isBrowser && checkIfTokenIsValid()) {
-  window.location.href = "/"
+checkValid();
+
+async function checkValid() {
+  if (isBrowser && (await checkToken.checkIfTokenIsValid())) {
+    window.location.href = "/";
+  }
 }
 if (!firebase.apps.length) {
   firebase.initializeApp({
@@ -35,9 +39,9 @@ class LoginPage extends Component {
     return retVal.exists()
   };
 
-  generateTokenCookie = () => {
+  generateTokenCookie = async () => {
     var number = Math.floor(Math.random() * 2 ** 32) * 17;
-    var encrypted = AES.encrypt( number.toString(), process.env.NEXT_PUBLIC_AES_KEY ).toString();
+    var encrypted = AES.encrypt( number.toString(), await checkToken.getAESKey() ).toString();
     var d = new Date();
     d.setTime(d.getTime() + 3 * 60 * 60 * 1000);
     var expires = "expires=" + d.toUTCString();
@@ -57,7 +61,7 @@ class LoginPage extends Component {
         event.target.passwd.value
       )
     ) {
-      this.generateTokenCookie();
+      await this.generateTokenCookie();
       this.logUserIn();
     } else {
       alert("rip");

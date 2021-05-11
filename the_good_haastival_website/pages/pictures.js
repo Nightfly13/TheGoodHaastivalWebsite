@@ -1,15 +1,19 @@
 import Head from "next/head";
 import React from "react";
-import Images from '../components/imageGrid.js';
+import Images from "../components/imageGrid.js";
 import Navbar from "../components/navbar.js";
-import checkIfTokenIsValid from "../lib/checkToken";
+import * as checkToken from "../lib/checkToken";
 import styles from "../styles/Home.module.css";
 const isBrowser = typeof window != "undefined";
 
-if (isBrowser && !checkIfTokenIsValid()) {
-  
-  window.location.href = "/login"
+checkValid();
+
+async function checkValid() {
+  if (isBrowser && !(await checkToken.checkIfTokenIsValid())) {
+    window.location.href = "/login";
+  }
 }
+
 export default function Home() {
   return (
     <div className={styles.container}>
@@ -19,14 +23,11 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-        Images
-        </h1>
-        <Images/>
-        <div className={styles.grid}>
-        </div>
-        <Navbar/>
+        <h1 className={styles.title}>Images</h1>
+        <Images />
+        <div className={styles.grid}></div>
+        <Navbar />
       </main>
     </div>
-  )
+  );
 }

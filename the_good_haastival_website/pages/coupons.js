@@ -8,15 +8,17 @@ import "firebase/database";
 import Head from "next/head";
 import React, { Component } from "react";
 import Navbar from "../components/navbar.js";
-import checkIfTokenIsValid from "../lib/checkToken";
+import * as checkToken from "../lib/checkToken";
 import styles from "../styles/Home.module.css";
 const isBrowser = typeof window != "undefined";
 
-if (isBrowser && !checkIfTokenIsValid()) {
-  
-  window.location.href = "/login"
-}
+checkValid();
 
+async function checkValid() {
+  if (isBrowser && !(await checkToken.checkIfTokenIsValid())) {
+    window.location.href = "/login";
+  }
+}
 if (isBrowser) {
   var id = new URLSearchParams(window.location.search).get("id");
 }
