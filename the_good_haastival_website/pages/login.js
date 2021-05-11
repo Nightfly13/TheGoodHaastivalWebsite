@@ -37,7 +37,7 @@ class LoginPage extends Component {
 
   generateTokenCookie = () => {
     var number = Math.floor(Math.random() * 2 ** 32) * 17;
-    var encrypted = AES.encrypt( number.toString(), process.env.AES_KEY ).toString();
+    var encrypted = AES.encrypt( number.toString(), process.env.NEXT_PUBLIC_AES_KEY ).toString();
     var d = new Date();
     d.setTime(d.getTime() + 3 * 60 * 60 * 1000);
     var expires = "expires=" + d.toUTCString();

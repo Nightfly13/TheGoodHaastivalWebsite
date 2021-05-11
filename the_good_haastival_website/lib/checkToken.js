@@ -5,7 +5,7 @@ function checkIfTokenIsValid() {
     var cookie = document.cookie;
     if (cookie.length > 0) {
       var token = cookie.match(/token=([^;\s]+)/)[1];
-      var decrypted = AES.decrypt(token, process.env.AES_KEY).toString(Utf8);
+      var decrypted = AES.decrypt(token, process.env.NEXT_PUBLIC_AES_KEY).toString(Utf8);
       return decrypted % 17 == 0      
     } else {
       return false;
