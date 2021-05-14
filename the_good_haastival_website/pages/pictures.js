@@ -15,7 +15,7 @@ async function checkValid() {
     window.location.href = "/login";
   } else if (isBrowser && !(await checkIfTokenIsAdmin())) {
     console.log("not admin in pics")
-    window.location.href = "/";
+    window.location.href = "/qr";
   }
   console.log("valid in pics")
 }
