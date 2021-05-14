@@ -6,7 +6,7 @@ class Navbar extends Component {
     return (
       <div className="navbar" id="myNavbar">
         <Link href={"/qr"}>QR</Link>
-        <Link href={"/refunds"}>Refunds</Link>
+        {/* <Link href={"/refunds"}>Refunds</Link> */}
         <Link href={"/pictures"}>Pics</Link>
         <a
           onClick={() => {
