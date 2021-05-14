@@ -8,12 +8,9 @@ const isBrowser = typeof window != "undefined";
 checkValid();
 
 async function checkValid() {
-  console.log("in checkValid in index")
   if (isBrowser && !(await checkIfTokenIsValid())) {
-    console.log("not valid in index")
     window.location.href = "/login";
   }
-  console.log("valid in index")
 }
 
 export default function Home() {

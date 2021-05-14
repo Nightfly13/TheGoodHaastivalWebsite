@@ -4,7 +4,6 @@ var AES = require("crypto-js/aes");
 var Utf8 = require("crypto-js").enc.Utf8;
 
 async function checkIfTokenIsValid() {
-  console.log("in checkIfTokenIsValid")
   var cookie = document.cookie;
   if (cookie.length > 0) {
     var token = cookie.match(/token=([^;\s]+)/)[1];
@@ -16,7 +15,6 @@ async function checkIfTokenIsValid() {
 }
 
 async function checkIfTokenIsAdmin() {
-  console.log("in checkIfTokenIsAdmin")
   var cookie = document.cookie;
   if (cookie.length > 0) {
     var token = cookie.match(/token=([^;\s]+)/)[1];
@@ -28,7 +26,6 @@ async function checkIfTokenIsAdmin() {
 }
 
 async function getAESKey() {
-  console.log("in getAESKey")
   if (!firebase.apps.length) {
     firebase.initializeApp({
       apiKey: process.env.APIKEY,
