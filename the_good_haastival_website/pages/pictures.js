@@ -6,7 +6,7 @@ import { checkIfTokenIsValid, checkIfTokenIsAdmin } from "../lib/checkToken";
 import styles from "../styles/Home.module.css";
 const isBrowser = typeof window != "undefined";
 
-checkValid()
+checkValid();
 
 async function checkValid() {
   console.log("in checkValid in pics");
@@ -22,20 +22,29 @@ async function checkValid() {
   console.log("valid in pics");
 }
 
-export default function Home() {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Haastival App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+class Pictures extends React.Component {
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>Images</h1>
-        <Images />
-        <div className={styles.grid}></div>
-        <Navbar />
-      </main>
-    </div>
-  );
+  componentDidMount() {
+    checkValid()
+  }
+
+  render() {
+    return (
+      <div className={styles.container}>
+        <Head>
+          <title>Haastival App</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+
+        <main className={styles.main}>
+          <h1 className={styles.title}>Images</h1>
+          <Images />
+          <div className={styles.grid}></div>
+          <Navbar />
+        </main>
+      </div>
+    );
+  }
 }
+
+export default Pictures;
