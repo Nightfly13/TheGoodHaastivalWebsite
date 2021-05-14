@@ -174,7 +174,6 @@ class ImageGrid extends React.Component {
           <img
             id={"imgNr" + idx.toString()}
             className={imgStyling.modalContent}
-            style={{pointerEvents : "none"}}
           />
           <div className={imgStyling.buttonDiv}>
             <button
