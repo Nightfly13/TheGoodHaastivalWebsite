@@ -11,7 +11,7 @@ checkValid();
 async function checkValid() {
   if (isBrowser && !(await checkToken.checkIfTokenIsValid())) {
     window.location.href = "/login";
-  } else if (!(await checkToken.checkIfTokenIsAdmin())) {
+  } else if (isBrowser && !(await checkToken.checkIfTokenIsAdmin())) {
     window.location.href = "/";
   }
 }
