@@ -9,11 +9,15 @@ const isBrowser = typeof window != "undefined";
 checkValid();
 
 async function checkValid() {
+  console.log("in checkValid in pics")
   if (isBrowser && !(await checkIfTokenIsValid())) {
+    console.log("not valid in pics")
     window.location.href = "/login";
   } else if (isBrowser && !(await checkIfTokenIsAdmin())) {
+    console.log("not admin in pics")
     window.location.href = "/";
   }
+  console.log("valid in pics")
 }
 
 export default function Home() {
