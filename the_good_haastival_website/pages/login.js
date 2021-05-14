@@ -29,19 +29,29 @@ if (!firebase.apps.length) {
   firebase.app(); // if already initialized, use that one
 }
 class LoginPage extends Component {
-
-
   checkUserLoginInfo = async (username, password) => {
-
     let hash = sha256(username + password).toString();
-    let retVal = await firebase.database().ref("hashes").child(hash).once("value");
+    let retVal = await firebase
+      .database()
+      .ref("hashes")
+      .child(hash)
+      .once("value");
 
-    return retVal.exists()
+      return {
+        valid: retVal.exists(),
+        admin: retVal.val(),
+    };
   };
 
-  generateTokenCookie = async () => {
+  generateTokenCookie = async (admin) => {
     var number = Math.floor(Math.random() * 2 ** 32) * 17;
-    var encrypted = AES.encrypt( number.toString(), await checkToken.getAESKey() ).toString();
+    if (admin) {
+      number *= 19;
+    }
+    var encrypted = AES.encrypt(
+      number.toString(),
+      await checkToken.getAESKey()
+    ).toString();
     var d = new Date();
     d.setTime(d.getTime() + 3 * 60 * 60 * 1000);
     var expires = "expires=" + d.toUTCString();
@@ -49,19 +59,19 @@ class LoginPage extends Component {
   };
 
   logUserIn = () => {
-    window.location.href = "/"
+    window.location.href = "/";
   };
 
   onSubmit = async (event) => {
     event.preventDefault();
 
-    if (
-      await this.checkUserLoginInfo(
-        event.target.usrname.value,
-        event.target.passwd.value
-      )
-    ) {
-      await this.generateTokenCookie();
+    const { valid, admin } = await this.checkUserLoginInfo(
+      event.target.usrname.value,
+      event.target.passwd.value
+    );
+
+    if (valid) {
+      await this.generateTokenCookie(admin);
       this.logUserIn();
     } else {
       alert("rip");

@@ -14,6 +14,17 @@ async function checkIfTokenIsValid() {
   }
 }
 
+async function checkIfTokenIsAdmin() {
+  var cookie = document.cookie;
+  if (cookie.length > 0) {
+    var token = cookie.match(/token=([^;\s]+)/)[1];
+    var decrypted = AES.decrypt(token, await getAESKey()).toString(Utf8);
+    return decrypted % 19 == 0;
+  } else {
+    return false;
+  }
+}
+
 async function getAESKey() {
   if (!firebase.apps.length) {
     firebase.initializeApp({
@@ -33,4 +44,4 @@ async function getAESKey() {
   return data.val();
 }
 
-export { checkIfTokenIsValid, getAESKey };
+export { checkIfTokenIsValid, checkIfTokenIsAdmin, getAESKey };
