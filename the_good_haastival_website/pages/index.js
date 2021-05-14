@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Navbar from "../components/navbar.js";
-import * as checkToken from "../lib/checkToken";
+import { checkIfTokenIsValid } from "../lib/checkToken";
 import styles from "../styles/Home.module.css";
 
 const isBrowser = typeof window != "undefined";
@@ -9,7 +9,7 @@ checkValid();
 
 async function checkValid() {
   console.log("in checkValid in index")
-  if (isBrowser && !(await checkToken.checkIfTokenIsValid())) {
+  if (isBrowser && !(await checkIfTokenIsValid())) {
     console.log("not valid in index")
     window.location.href = "/login";
   }

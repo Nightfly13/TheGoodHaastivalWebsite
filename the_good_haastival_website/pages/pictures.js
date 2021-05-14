@@ -2,16 +2,16 @@ import Head from "next/head";
 import React from "react";
 import Images from "../components/imageGrid.js";
 import Navbar from "../components/navbar.js";
-import * as checkToken from "../lib/checkToken";
+import { checkIfTokenIsValid, checkIfTokenIsAdmin} from "../lib/checkToken";
 import styles from "../styles/Home.module.css";
 const isBrowser = typeof window != "undefined";
 
 checkValid();
 
 async function checkValid() {
-  if (isBrowser && !(await checkToken.checkIfTokenIsValid())) {
+  if (isBrowser && !(await checkIfTokenIsValid())) {
     window.location.href = "/login";
-  } else if (isBrowser && !(await checkToken.checkIfTokenIsAdmin())) {
+  } else if (isBrowser && !(await checkIfTokenIsAdmin())) {
     window.location.href = "/";
   }
 }

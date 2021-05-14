@@ -3,7 +3,7 @@ import firebase from "firebase/app";
 import "firebase/database";
 import Head from "next/head";
 import React, { Component } from "react";
-import * as checkToken from "../lib/checkToken";
+import { checkIfTokenIsValid, getAESKey } from "../lib/checkToken";
 import styles from "../styles/Home.module.css";
 var AES = require("crypto-js/aes");
 const isBrowser = typeof window != "undefined";
@@ -11,7 +11,7 @@ const isBrowser = typeof window != "undefined";
 checkValid();
 
 async function checkValid() {
-  if (isBrowser && (await checkToken.checkIfTokenIsValid())) {
+  if (isBrowser && (await checkIfTokenIsValid())) {
     window.location.href = "/";
   }
 }
@@ -50,7 +50,7 @@ class LoginPage extends Component {
     }
     var encrypted = AES.encrypt(
       number.toString(),
-      await checkToken.getAESKey()
+      await getAESKey()
     ).toString();
     var d = new Date();
     d.setTime(d.getTime() + 3 * 60 * 60 * 1000);
@@ -69,6 +69,11 @@ class LoginPage extends Component {
       event.target.usrname.value,
       event.target.passwd.value
     );
+
+    console.log("this is valid: ", valid)
+    console.log(typeof(valid))
+    console.log(valid)
+    console.log(typeof(valid))
 
     if (valid) {
       await this.generateTokenCookie(!!admin);
