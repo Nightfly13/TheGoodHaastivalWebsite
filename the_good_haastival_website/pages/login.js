@@ -70,11 +70,6 @@ class LoginPage extends Component {
       event.target.passwd.value
     );
 
-    console.log("this is valid: ", valid)
-    console.log(typeof(valid))
-    console.log(valid)
-    console.log(typeof(valid))
-
     if (valid) {
       await this.generateTokenCookie(!!admin);
       this.logUserIn();
