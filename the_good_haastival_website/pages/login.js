@@ -43,9 +43,9 @@ class LoginPage extends Component {
     };
   };
 
-  generateTokenCookie = async (admin) => {
+  generateTokenCookie = async (isAdmin) => {
     var number = Math.floor(Math.random() * 2 ** 32) * 17;
-    if (admin) {
+    if (isAdmin) {
       number *= 19;
     }
     var encrypted = AES.encrypt(
@@ -65,13 +65,13 @@ class LoginPage extends Component {
   onSubmit = async (event) => {
     event.preventDefault();
 
-    const { valid, admin } = await this.checkUserLoginInfo(
+    let { valid, admin } = await this.checkUserLoginInfo(
       event.target.usrname.value,
       event.target.passwd.value
     );
 
     if (valid) {
-      await this.generateTokenCookie(admin);
+      await this.generateTokenCookie(!!admin);
       this.logUserIn();
     } else {
       alert("rip");
