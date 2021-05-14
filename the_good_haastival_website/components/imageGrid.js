@@ -4,7 +4,6 @@ import React from "react";
 import imgStyling from "./imageGrid.module.css";
 const isBrowser = typeof window != "undefined";
 
-
 if (!firebase.apps.length) {
   firebase.initializeApp({
     apiKey: process.env.APIKEY,
@@ -157,12 +156,17 @@ class ImageGrid extends React.Component {
           className={imgStyling.myImg}
           onClick={() => this.showModal(idx)}
         />
-        <div id={"myModal" + idx.toString()} className={imgStyling.modal}>
+        <div
+          id={"myModal" + idx.toString()}
+          className={imgStyling.modal}
+          onClick={() => {
+            this.hideModal(idx);
+          }}
+        >
           <span
             className={imgStyling.close}
             onClick={function () {
-              var modal = document.getElementById("myModal" + idx);
-              modal.style.display = "none";
+              hideModal(idx);
             }}
           >
             x
@@ -170,6 +174,7 @@ class ImageGrid extends React.Component {
           <img
             id={"imgNr" + idx.toString()}
             className={imgStyling.modalContent}
+            style={{pointerEvents : "none"}}
           />
           <div className={imgStyling.buttonDiv}>
             <button
@@ -177,8 +182,7 @@ class ImageGrid extends React.Component {
               onClick={() => {
                 var currentMainImg = document.getElementById("mainImg" + idx);
 
-                this.hideModal(idx)
-
+                this.hideModal(idx);
 
                 let timeOut = setTimeout(() => {
                   currentMainImg.style.display = "none";
@@ -200,7 +204,7 @@ class ImageGrid extends React.Component {
               onClick={() => {
                 this.handleDownload(elem, "haastivalImg" + idx + ".jpg");
                 this.moveFile(elem, "verified-images");
-                this.hideModal(idx)
+                this.hideModal(idx);
                 var currentMainImg = document.getElementById("mainImg" + idx);
                 currentMainImg.style.display = "none";
                 this.showModal(idx + 1);
