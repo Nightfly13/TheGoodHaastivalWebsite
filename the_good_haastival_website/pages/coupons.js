@@ -1,7 +1,7 @@
 import {
-  FirebaseDatabaseNode, FirebaseDatabaseProvider,
-
-  FirebaseDatabaseTransaction
+  FirebaseDatabaseNode,
+  FirebaseDatabaseProvider,
+  FirebaseDatabaseTransaction,
 } from "@react-firebase/database";
 import firebase from "firebase/app";
 import "firebase/database";
@@ -85,7 +85,7 @@ class Page extends Component {
                   return (
                     <React.Fragment>
                       <tr>
-                        <td className={styles.td} colspan="4">
+                        <td className={styles.td} colSpan="4">
                           Tickets: {d.value}
                         </td>
                       </tr>
@@ -143,7 +143,7 @@ class Page extends Component {
               </td>
             </tr>
             <tr>
-              <td className={styles.td} colspan="4">
+              <td className={styles.td} colSpan="4">
                 Total amount: {this.state.totalTicketsToBuy}
               </td>
             </tr>
@@ -163,7 +163,7 @@ class Page extends Component {
                 {({ runTransaction }) => {
                   return (
                     <tr>
-                      <td className={styles.td} colspan="4">
+                      <td className={styles.td} colSpan="4">
                         <button
                           id="confirm"
                           className={styles.button}
@@ -175,6 +175,21 @@ class Page extends Component {
                                   return 0;
                                 } else {
                                   if (val >= this.state.totalTicketsToBuy) {
+                                    firebase.app(); // if already initialized, use that one
+                                    console.log(firebase);
+                                    var username =
+                                      document.cookie.match(
+                                        /username=([^;\s]+)/
+                                      )[1];
+                                    firebase
+                                      .database()
+                                      .ref("purchases")
+                                      .child(username)
+                                      .set(
+                                        firebase.database.ServerValue.increment(
+                                          this.state.totalTicketsToBuy
+                                        )
+                                      );
                                     successFlag = true;
                                     return val - this.state.totalTicketsToBuy;
                                   } else {

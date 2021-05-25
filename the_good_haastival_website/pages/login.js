@@ -37,9 +37,9 @@ class LoginPage extends Component {
       .child(hash)
       .once("value");
 
-      return {
-        valid: retVal.exists(),
-        admin: retVal.val(),
+    return {
+      valid: retVal.exists(),
+      admin: retVal.val(),
     };
   };
 
@@ -58,6 +58,13 @@ class LoginPage extends Component {
     document.cookie = "token=" + encrypted + ";" + expires;
   };
 
+  createUserNameCookie = (username) => {
+    var d = new Date();
+    d.setTime(d.getTime() + 3 * 60 * 60 * 1000);
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = "username=" + username + ";" + expires;
+  };
+
   logUserIn = () => {
     window.location.href = "/";
   };
@@ -72,6 +79,7 @@ class LoginPage extends Component {
 
     if (valid) {
       await this.generateTokenCookie(!!admin);
+      this.createUserNameCookie(event.target.usrname.value);
       this.logUserIn();
     } else {
       alert("rip");
