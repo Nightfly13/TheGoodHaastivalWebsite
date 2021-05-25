@@ -5,8 +5,9 @@ var Utf8 = require("crypto-js").enc.Utf8;
 
 async function checkIfTokenIsValid() {
   var cookie = document.cookie;
-  if (cookie.length > 0) {
-    var token = cookie.match(/token=([^;\s]+)/)[1];
+  var match = cookie.match(/token=([^;\s]+)/);
+  if (match) {
+    var token = match[1];
     var decrypted = AES.decrypt(token, await getAESKey()).toString(Utf8);
     return decrypted % 17 == 0;
   } else {
