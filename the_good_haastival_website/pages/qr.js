@@ -26,7 +26,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <QRReader />
-        <h1 className={styles.title} style={{ "text-align": "center" }}>
+        <h1 className={styles.title} style={{ textAlign: "center" }}>
           SCAN THE CODE
         </h1>
         <p id="success">{success}</p>
